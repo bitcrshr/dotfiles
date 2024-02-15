@@ -1,0 +1,13 @@
+theme = "material_palenight"
+
+[editor]
+true-color = true
+
+[editor.lsp]
+display-inlay-hints = true
+
+[keys.normal]
+"_" = "goto_line_start"
+"$" = "goto_line_end"
+"{" = "goto_prev_paragraph"
+"}" = "goto_next_paragraph"
