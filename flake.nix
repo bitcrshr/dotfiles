@@ -56,5 +56,10 @@
       # Outputs for other flakes to extend this one are below
 
       baseModules = import ./modules;
+
+      lib = {
+        mkPkgs = mkPkgs;
+        mkHomeConfig = mkHomeConfig;
+      };
     };
 }
