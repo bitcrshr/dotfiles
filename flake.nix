@@ -14,9 +14,13 @@
     nixos-facter-modules = {
       url = "github:numtide/nixos-facter-modules";
     };
+    nix-darwiin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, disko, nixos-facter-modules, ... }:
+  outputs = { nixpkgs, home-manager, nix-darwin, ... }:
     let
       mkPkgs = system: import nixpkgs {
         inherit system;
@@ -51,6 +55,12 @@
             (import ./hosts/laptop).homeConfiguration
           ];
         };
+      };
+
+      darwinConfigurations."Chandlers-MacBook" = nix-darwin.lib.darwinSystem {
+        modules = [
+          (import ./hosts/laptop).darwinConfiguration
+        ];
       };
 
       # Outputs for other flakes to extend this one are below
