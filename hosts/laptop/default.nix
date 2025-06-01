@@ -1,0 +1,3 @@
+{
+  homeConfiguration = import ./home.nix;
+}

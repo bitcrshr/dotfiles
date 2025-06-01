@@ -1,0 +1,5 @@
+{
+  homeConfigurations = [];
+
+  nixOsConfigurations = [];
+}
