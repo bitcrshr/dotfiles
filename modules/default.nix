@@ -1,5 +1,6 @@
 {
   lib,
+  config,
   ...
 }: {
   imports = [
@@ -9,6 +10,4 @@
     ./zsh.nix
     ./git.nix
   ];
-
-  systemd.user.startServices = "sd-switch";
 }

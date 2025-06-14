@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   nodejs = pkgs.nodejs_22;
   nodePackages = pkgs.nodePackages;

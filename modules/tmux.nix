@@ -4,6 +4,7 @@
     enable = true;
     tmuxinator.enable = true;
     escapeTime = 10;
+    sensibleOnTop = true;
 
     plugins = with pkgs; [
       tmuxPlugins.sensible
@@ -36,6 +37,9 @@
         unbind C-b
         set-option -g prefix "C-Space"
         bind-key "C-Space" send-prefix 
+
+        set -gu default-command
+        set -g default-shell "$SHELL"
 
         set-window-option -g mouse on
         set -g history-limit 30000

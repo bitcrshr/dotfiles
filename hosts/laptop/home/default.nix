@@ -1,13 +1,11 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
+{ lib
+, config
+, pkgs
+, ...
 }: {
   imports = [
-    ../../modules
+    ../../../modules
+    ./zsh.nix
   ];
 
   nixpkgs = {
@@ -18,8 +16,8 @@
 
   home = {
     username = "chandler";
-    homeDirectory = "/Users/chandler";
   };
+
 
   programs.home-manager.enable = true;
 

@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 let
   # Get all .nix files in this directory except default.nix
@@ -7,7 +7,7 @@ let
     (builtins.attrNames (builtins.readDir ./.));
 
   # Import each language file
-  langConfigs = map (file: import (./. + "/${file}") { inherit pkgs lib; }) langFiles;
+  langConfigs = map (file: import (./. + "/${file}") { inherit pkgs lib config; }) langFiles;
 in
 {
   # Merge all language configurations

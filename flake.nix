@@ -14,7 +14,7 @@
     nixos-facter-modules = {
       url = "github:numtide/nixos-facter-modules";
     };
-    nix-darwiin = {
+    nix-darwin = {
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -46,20 +46,15 @@
         };
     in
     {
-      homeConfigurations = {
-        "laptop" = mkHomeConfig {
-          system = "aarch64-darwin";
-          username = "chandler";
-          homeDirectory = "/Users/chandler";
-          modules = [
-            (import ./hosts/laptop).homeConfiguration
-          ];
-        };
-      };
-
       darwinConfigurations."Chandlers-MacBook" = nix-darwin.lib.darwinSystem {
         modules = [
           (import ./hosts/laptop).darwinConfiguration
+          home-manager.darwinModules.home-manager
+		{
+			home-manager.useGlobalPkgs = true;
+			home-manager.useUserPackages = true;
+			home-manager.users.chandler = (import ./hosts/laptop).homeConfiguration;
+		}
         ];
       };
 

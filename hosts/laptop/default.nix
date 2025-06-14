@@ -1,5 +1,5 @@
 {
-  homeConfiguration = import ./home.nix;
+  homeConfiguration = import ./home;
 
   darwinConfiguration = import ./configuration.nix;
 }
