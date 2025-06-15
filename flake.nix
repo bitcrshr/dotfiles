@@ -18,9 +18,10 @@
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    opnix.url = "github:brizzbuzz/opnix";
   };
 
-  outputs = { nixpkgs, home-manager, nix-darwin, ... }:
+  outputs = { nixpkgs, home-manager, nix-darwin, opnix, ... }:
     let
       mkPkgs = system: import nixpkgs {
         inherit system;
@@ -48,13 +49,14 @@
     {
       darwinConfigurations."Chandlers-MacBook" = nix-darwin.lib.darwinSystem {
         modules = [
-          (import ./hosts/laptop).darwinConfiguration
           home-manager.darwinModules.home-manager
-		{
-			home-manager.useGlobalPkgs = true;
-			home-manager.useUserPackages = true;
-			home-manager.users.chandler = (import ./hosts/laptop).homeConfiguration;
-		}
+          opnix.homeManagerModules.default
+          (import ./hosts/laptop/configuration.nix)
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.chandler = (import ./hosts/laptop).homeConfiguration;
+          }
         ];
       };
 

@@ -1,5 +1,5 @@
-{
-  homeConfigurations = [];
+{ ... }: {
+  homeConfigurations = [ ];
 
-  nixOsConfigurations = [];
+  nixOsConfigurations = [ ];
 }

@@ -1,11 +1,11 @@
 { pkgs, ... }:
-
 {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     stats
     raycast
+    ripgrep
   ];
 
   # Using determinate, which means nix-darwin should not
@@ -44,5 +44,7 @@
 
   programs = {
     _1password-gui.enable = true;
+    _1password.enable = true;
   };
+
 }

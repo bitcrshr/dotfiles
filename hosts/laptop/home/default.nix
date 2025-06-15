@@ -24,4 +24,7 @@
   systemd.user.startServices = "sd-switch";
 
   home.stateVersion = "25.05";
+
+  programs.git.userName = "Chandler Davis";
+  programs.git.userEmail = "chandler.davis99@icloud.com";
 }
