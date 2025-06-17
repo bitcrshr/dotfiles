@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   # List packages installed in system profile. To search by name, run:
@@ -12,6 +12,10 @@
 
   homebrew = {
     enable = true;
+
+    onActivation = {
+      cleanup = "zap";
+    };
 
     taps = [ ];
     brews = [ ];
@@ -46,8 +50,11 @@
     };
   };
 
+  # macos already comes with zsh, so don't let home manager install another binary
+  home-manager.users.chandler.programs.zsh.package = pkgs.emptyDirectory;
+
   programs = {
     _1password-gui.enable = true;
-    zsh.enable = true;
+    zsh.enable = false; # let home-manager manage the zsh install
   };
 }

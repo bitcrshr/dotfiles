@@ -23,6 +23,5 @@
       export PATH=$PATH:$HOME/.local/bin
       export FZF_DEFAULT_COMMAND='fd'
     '';
-
   };
 }

@@ -23,8 +23,8 @@
       systems = [ "x86_64-linux" "aarch64-darwin" ];
 
       imports = [
-        # This new file will contain all our system definitions
         ./flake-parts/systems.nix
+        ./flake-parts/exports.nix
       ];
     };
 }

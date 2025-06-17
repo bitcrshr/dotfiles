@@ -7,6 +7,12 @@
     ./helix
   ];
 
+  programs.git = {
+    enable = true;
+
+    userName = "Chandler Davis";
+  };
+
   home.packages = with pkgs; [
     fzf
     ripgrep
