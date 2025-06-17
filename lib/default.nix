@@ -33,8 +33,10 @@ in
       specialArgs = specialArgs // { inherit inputs; };
       modules = [
         modulePath
+
         # Home Manager module for nix-darwin
         home-manager.darwinModules.home-manager
+
         {
           home-manager.useGlobalPkgs = true;
           # User-specific home-manager config

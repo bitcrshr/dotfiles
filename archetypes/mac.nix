@@ -15,7 +15,7 @@
 
     taps = [ ];
     brews = [ ];
-    casks = [ "rectangle" "ghostty" "spotify"];
+    casks = [ "rectangle" "ghostty" "spotify" ];
   };
 
 
@@ -31,8 +31,6 @@
     primaryUser = "chandler";
     stateVersion = 6;
   };
-
-
 
   # The platform the configuration will be used on.
   nixpkgs = {
