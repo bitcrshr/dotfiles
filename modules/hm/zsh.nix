@@ -16,7 +16,7 @@
 
       '';
 
-    initExtra = ''
+    initContent = ''
       export PATH=$PATH:$HOME/.nix-profile/bin
       export GPG_TTY=$(tty)
       export PATH=$PATH:/usr/local/go/bin
