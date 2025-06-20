@@ -5,7 +5,8 @@
     zsh = {
       shellAliases = {
         conedit = "tmux new -s dotfiles -c ~/dotfiles -A";
-        update = "sudo darwin-rebuild switch --flake '/Users/chandler/dotfiles#macbook'";
+        # darwin-rebuild chowders the .git dir perms if run from within the repo
+        update = "cd ~; sudo darwin-rebuild switch --flake '/Users/chandler/dotfiles#macbook' || true; popd > /dev/null";
         src = "source ~/.zshrc";
       };
 

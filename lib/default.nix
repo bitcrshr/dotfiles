@@ -1,6 +1,6 @@
 { inputs }:
 let
-  inherit (inputs) nixpkgs home-manager nix-darwin;
+  inherit (inputs) nixpkgs home-manager nix-darwin sops-nix opnix;
 in
 {
   # Function to build a NixOS system

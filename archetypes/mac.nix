@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   # List packages installed in system profile. To search by name, run:
@@ -54,6 +54,7 @@
   home-manager.users.chandler.programs.zsh.package = pkgs.emptyDirectory;
 
   programs = {
+    _1password.enable = true;
     _1password-gui.enable = true;
     zsh.enable = false; # let home-manager manage the zsh install
   };

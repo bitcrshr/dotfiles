@@ -6,6 +6,7 @@
       home-manager.users.chandler = {
         imports = [
           ../../modules/hm
+          ../../modules/hm/profiles/personal.nix
           ./home.nix
         ];
 
