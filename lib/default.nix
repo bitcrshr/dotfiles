@@ -5,7 +5,7 @@ in
 {
   # Function to build a NixOS system
   mkNixOSSystem =
-    { system, hostname, specialArgs ? { } }:
+    { system, hostname, specialArgs ? { }, extraModules ? [ ] }:
     nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = specialArgs // { inherit inputs; };
@@ -22,7 +22,7 @@ in
           home-manager.extraSpecialArgs = specialArgs // { inherit inputs; };
           home-manager.users.chandler = import ../hosts/${hostname}/home.nix;
         }
-      ];
+      ] ++ extraModules;
     };
 
   # Function to build a nix-darwin system
