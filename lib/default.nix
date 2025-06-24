@@ -46,13 +46,11 @@ in
     };
 
   mkHomeManager =
-    { system, hostname }:
+    { system, hostname, modules }:
     home-manager.lib.homeManagerConfiguration {
+      inherit modules;
+
       pkgs = nixpkgs.legacyPackages.${system};
       extraSpecialArgs = { inherit inputs; };
-      modules = [
-        # The main home.nix for the host, which now defines its own user.
-        ./../hosts/${hostname}/home.nix
-      ];
     };
 }
