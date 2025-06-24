@@ -5,13 +5,13 @@ in
 {
   # Function to build a NixOS system
   mkNixOSSystem =
-    { system, hostname, specialArgs ? { }, extraModules ? [ ] }:
+    { system, hostname, specialArgs ? { }, self ? inputs.self, modules ? [ ] }:
     nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = specialArgs // { inherit inputs; };
       modules = [
         # Host-specific configuration
-        ./../hosts/${hostname}/configuration.nix
+        (self + "/hosts/${hostname}/configuration.nix")
 
         # Home Manager module for NixOS
         home-manager.nixosModules.home-manager
@@ -20,9 +20,9 @@ in
           home-manager.useUserPackages = true;
           # User-specific home-manager config
           home-manager.extraSpecialArgs = specialArgs // { inherit inputs; };
-          home-manager.users.chandler = import ../hosts/${hostname}/home.nix;
+          home-manager.users.chandler = import (self + "/hosts/${hostname}/home.nix");
         }
-      ] ++ extraModules;
+      ] ++ modules;
     };
 
   # Function to build a nix-darwin system
