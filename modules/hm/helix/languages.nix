@@ -7,12 +7,19 @@
         staticcheck = true;
       };
 
-      golangci-lint-lsp = {
+      # https://github.com/helix-editor/helix/issues/13501
+      golangci-lint2-langserver = {
         command = "golangci-lint-langserver";
         config = {
-          command = [ "golangci-lint" "run" "--output.json.path" "stdout" "--show-status=false" "--issues-exit-code=1" ];
+          command = [
+            "golangci-lint"
+            "run"
+            "--output.json.path"
+            "stdout"
+            "--show-stats-false"
+            "--issues-exit-code=1"
+          ];
         };
-
       };
     };
 
@@ -20,8 +27,9 @@
       {
         name = "go";
         auto-format = true;
-        language-servers = [ "gopls" "golangci-lint-lsp" ];
+        language-servers = [ "gopls" "golangci-lint2-langserver" ];
       }
+
 
       {
         name = "rust";
