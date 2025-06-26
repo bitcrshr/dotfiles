@@ -16,7 +16,7 @@
             "run"
             "--output.json.path"
             "stdout"
-            "--show-stats-false"
+            "--show-stats=false"
             "--issues-exit-code=1"
           ];
         };
