@@ -1,8 +1,3 @@
-{
-  flake.modules = {
-    home-manager = ../modules/hm;
-    archetypes = ../archetypes;
-  };
-
-  flake.lib = ../lib;
+{ inputs, ... }: {
+  flake.lib = (import ../lib/machine.nix { inherit inputs; });
 }

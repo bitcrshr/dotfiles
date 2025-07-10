@@ -27,5 +27,16 @@
         ./flake-parts/systems.nix
         ./flake-parts/exports.nix
       ];
+
+      perSystem = { config, pkgs, ... }: {
+        devShells = {
+          default = pkgs.mkShell {
+            nativeBuildInputs = with pkgs; [
+              nixpkgs-fmt
+              nil
+            ];
+          };
+        };
+      };
     };
 }

@@ -18,8 +18,15 @@
     };
 
     taps = [ ];
-    brews = [];
-    casks = [ "rectangle" "ghostty" "spotify" "zen" "appcleaner" "obsidian" "1password" "balenaetcher" ];
+    brews = [ ];
+    casks = [
+      "rectangle"
+      "ghostty"
+      "spotify"
+      "zen"
+      "appcleaner"
+      "obsidian"
+    ];
   };
 
 
@@ -44,23 +51,30 @@
     };
   };
 
-  services = {
-    tailscale = {
-      enable = true;
+
+  home-manager.users.chandler = {
+    imports = [
+      ../modules/hm
+    ];
+
+    home = {
+      username = "chandler";
+      stateVersion = "25.05";
+    };
+
+    systemd.user.startServices = "sd-switch";
+
+    programs.zsh = {
+      # macos already comes with zsh, so don't let home manager install another binary
+      package = pkgs.emptyDirectory;
+
+      initContent = ''
+        export PATH="$PATH:/run/current-system/sw/bin"
+      '';
     };
   };
 
-  # macos already comes with zsh, so don't let home manager install another binary
-  home-manager.users.chandler.programs.zsh = {
-    package = pkgs.emptyDirectory;
-
-    initContent = ''
-      export PATH="$PATH:/run/current-system/sw/bin"
-    '';
-  };
-
   programs = {
-    _1password.enable = true;
     zsh.enable = false; # let home-manager manage the zsh install
   };
 }
