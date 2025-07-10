@@ -19,4 +19,9 @@
       };
     }
   ];
+
+  
+  homebrew = {
+    brews = [ "socat" ];
+  };
 }

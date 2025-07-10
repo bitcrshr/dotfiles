@@ -7,9 +7,14 @@
     ./helix
   ];
 
-  programs.git = {
-    enable = true;
+  programs = {
+    git.enable = true;
 
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
   };
 
   home.packages = with pkgs;
@@ -18,5 +23,6 @@
       ripgrep
       btop
       delta
+      tailscale
     ];
 }

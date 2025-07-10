@@ -18,8 +18,8 @@
     };
 
     taps = [ ];
-    brews = [ ];
-    casks = [ "rectangle" "ghostty" "spotify" "zen" "appcleaner" "obsidian" ];
+    brews = [];
+    casks = [ "rectangle" "ghostty" "spotify" "zen" "appcleaner" "obsidian" "1password" "balenaetcher" ];
   };
 
 
@@ -51,11 +51,16 @@
   };
 
   # macos already comes with zsh, so don't let home manager install another binary
-  home-manager.users.chandler.programs.zsh.package = pkgs.emptyDirectory;
+  home-manager.users.chandler.programs.zsh = {
+    package = pkgs.emptyDirectory;
+
+    initContent = ''
+      export PATH="$PATH:/run/current-system/sw/bin"
+    '';
+  };
 
   programs = {
     _1password.enable = true;
-    _1password-gui.enable = true;
     zsh.enable = false; # let home-manager manage the zsh install
   };
 }
