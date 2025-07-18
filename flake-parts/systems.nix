@@ -9,5 +9,12 @@ in
         modules = [ ../hosts/macbook ];
       };
     };
+
+    nixosConfigurations = {
+      gaming = lib.mkNixOSConfig {
+        system = "x86_64-linux";
+        modules = [../hosts/gaming];
+      };
+    };
   };
 }

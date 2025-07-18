@@ -8,7 +8,17 @@
   ];
 
   programs = {
-    git.enable = true;
+    git = {
+      enable = true;
+      userName = "Chandler Davis";
+      userEmail = "chandler.davis99@icloud.com";
+    };
+
+    gh = {
+      enable = true;
+      gitCredentialHelper.enable = true;
+    };
+
 
     direnv = {
       enable = true;

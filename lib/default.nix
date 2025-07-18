@@ -22,14 +22,14 @@ in
       ] ++ modules;
     };
 
-  mkNixOSConfig = { system, specialArgs ? { }, self ? self, modules ? [ ] }:
+  mkNixOSConfig = { system, specialArgs ? { }, modules ? [ ] }:
     nixpkgs.lib.nixosSystem {
       inherit system;
 
       specialArgs = specialArgs // { inherit inputs; };
 
       modules = [
-        (self + "/archetypes/nixos.nix")
+        (self + "/archetypes/nixos")
 
         home-manager.nixosModules.home-manager
 
