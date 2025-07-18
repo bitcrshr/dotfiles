@@ -103,6 +103,7 @@
   environment.systemPackages = with pkgs; [
     helix
     gnomeExtensions.appindicator
+    cpu-x
   ];
 
   services.udev.packages = with pkgs; [

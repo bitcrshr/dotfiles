@@ -26,7 +26,9 @@ in
     nixpkgs.lib.nixosSystem {
       inherit system;
 
-      specialArgs = specialArgs // { inherit inputs; };
+      specialArgs = specialArgs // {
+        inherit inputs;
+      };
 
       modules = [
         (self + "/archetypes/nixos")
