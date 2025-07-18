@@ -13,7 +13,11 @@ in
     nixosConfigurations = {
       gaming = lib.mkNixOSConfig {
         system = "x86_64-linux";
-        modules = [../hosts/gaming];
+        modules = [
+          inputs.nixos-facter-modules.nixosModules.facter
+          inputs.disko.nixosModules.disko
+          ../hosts/gaming
+        ];
       };
     };
   };

@@ -22,7 +22,12 @@ in
       ] ++ modules;
     };
 
-  mkNixOSConfig = { system, specialArgs ? { }, modules ? [ ] }:
+  mkNixOSConfig =
+    { system
+    , specialArgs ? { }
+    , modules ? [ ]
+    ,
+    }:
     nixpkgs.lib.nixosSystem {
       inherit system;
 
