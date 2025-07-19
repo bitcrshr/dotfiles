@@ -10,7 +10,7 @@
       ./disko.nix
       ./graphics.nix
       ./steam.nix
-      ./hyprland.nix
+      ./hyprland
 
       {
         home-manager.users.chandler = {

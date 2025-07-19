@@ -1,9 +1,9 @@
 { pkgs, config, lib, inputs, ... }:
 {
   imports = [
-    # Include the results of the hardware scan.
     inputs.home-manager.nixosModules.home-manager
     {
+      home-manager.backupFileExtension = "backup";
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.users.chandler = {
