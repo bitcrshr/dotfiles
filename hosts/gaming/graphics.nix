@@ -12,8 +12,14 @@
     displayManager = {
       gdm = {
         enable = true;
-        wayland = false;
-        autoSuspend = true;
+        wayland = true;
+        autoSuspend = false;
+      };
+    };
+
+    desktopManager = {
+      gnome = {
+        enable = true;
       };
     };
   };

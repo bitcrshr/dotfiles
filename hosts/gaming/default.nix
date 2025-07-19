@@ -10,6 +10,7 @@
       ./disko.nix
       ./graphics.nix
       ./steam.nix
+      ./hyprland.nix
 
       {
         home-manager.users.chandler = {
@@ -51,14 +52,8 @@
     LC_PAPER = "en_US.UTF-8";
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
   };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -108,6 +103,7 @@
     helix
     gnomeExtensions.appindicator
     cpu-x
+    kitty
   ];
 
   services.udev.packages = with pkgs; [
@@ -135,6 +131,13 @@
       '';
       mode = "0755";
     };
+  };
+
+  systemd.targets = {
+    sleep.enable = false;
+    suspend.enable = false;
+    hibernate.enable = false;
+    hybrid-sleep.enable = false;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
