@@ -14,7 +14,6 @@ in
       gaming = lib.mkNixOSConfig {
         system = "x86_64-linux";
         modules = [
-          inputs.nixos-facter-modules.nixosModules.facter
           inputs.disko.nixosModules.disko
           ../hosts/gaming
         ];
