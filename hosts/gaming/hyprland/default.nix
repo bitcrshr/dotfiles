@@ -26,6 +26,7 @@
   home-manager.users.chandler = {
     imports = [
       inputs.walker.homeManagerModules.default
+      ./waybar
     ];
 
     home.packages = with pkgs; [
@@ -38,42 +39,32 @@
       hyprpaper
     ];
 
+    home.pointerCursor = {
+      gtk.enable = true;
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24;
+    };
+
+    gtk = {
+      enable = true;
+    };
+
     programs = {
       walker = {
         enable = true;
         runAsService = true;
 
         config = {
-          search.placeholder = "hey";
+          close_when_open = true;
+
+          keys = {
+            activation_modifiers.alternate = "ralt";
+            trigger_labels = "ralt";
+          };
         };
       };
 
-      waybar =
-        let
-          repo = pkgs.fetchgit {
-            url = "https://github.com/woioeow/hyprland-dotfiles.git";
-            sparseCheckout = [
-              "hypr_style1/waybar"
-            ];
-            hash = "sha256-0u4bNmvMG772rhnYVyxodCmJqd+cJcM4V6gd7L+ioII=";
-          };
-
-          style =
-            builtins.readFile (
-              (builtins.toPath (repo)) + "/hypr_style1/waybar/style.css"
-            );
-
-          settings = builtins.fromJSON (
-            builtins.readFile ./waybar/config.json
-          );
-        in
-        {
-          enable = true;
-
-          systemd.enable = true;
-
-          inherit style settings;
-        };
     };
 
     services = {
@@ -93,13 +84,15 @@
         env = [
           "LIBVA_DRIVER_NAME,nvidia"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+          "XDG_CURRENT_DESKTOP,Hyprland"
+          "XDG_SESSION_DESKTOP,Hyprland"
         ];
 
-        "$mainMod" = "SUPER";
 
         "exec-once" = [
           "uwsm finalize"
           "walker --gapplication-service"
+          "hyprctl setcursor Bibata-Modern-Ice 24"
         ];
 
         input = {
@@ -117,29 +110,34 @@
           "DP-2, 1920x1080@60, 1920x-600, 1, transform, 1"
         ];
 
+        "$mainMod" = "ALT";
         "$terminal" = "ghostty";
         "$fileManager" = "dolphin";
         "$menu" = "walker";
         "$browser" = "zen";
 
         bind = [
-          "$mainMod, Q, exec, $terminal"
-          "$mainMod, C, killactive,"
-          "$mainMod, M, exit,"
+          "$mainMod, Q, killactive,"
+          "$mainMod SHIFT, Q, exit,"
           "$mainMod, E, exec, $fileManager"
-          "$mainMod, V, toggleFloating,"
-          "$mainMod, R, exec, $menu"
-          "$mainMod, B, exec, $browser"
-          "$mainMod, P, pseudo,"
-          "$mainMod, J, togglesplit,"
+          "$mainMod SHIFT, F, toggleFloating,"
+          "$mainMod, SPACE, exec, $menu"
 
-          "$mainMod, left, movefocus, l"
-          "$mainMod, right, movefocus, r"
-          "$mainMod, up, movefocus, u"
-          "$mainMod, down, movefocus, d"
+          "$mainMod, H, movefocus, l"
+          "$mainMod, L, movefocus, r"
+          "$mainMod, K, movefocus, u"
+          "$mainMod, J, movefocus, d"
+
+          "$mainMod SHIFT, H, movewindow, l"
+          "$mainMod SHIFT, L, movewindow, r"
+          "$mainMod SHIFT, K, movewindow, u"
+          "$mainMod SHIFT, J, movewindow, d"
 
           "$mainMod SHIFT, 1, movetoworkspace, 1"
           "$mainMod SHIFT, 2, movetoworkspace, 2"
+
+          "$mainMod, RETURN, fullscreen, 1"
+
         ];
 
         windowrule = [

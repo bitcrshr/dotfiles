@@ -9,6 +9,7 @@
       ./hardware-configuration.nix
       ./disko.nix
       ./graphics.nix
+      ./keyd.nix
       ./steam.nix
       ./hyprland
 
