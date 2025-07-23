@@ -1,4 +1,5 @@
-{ config, lib, pkgs, ... }: {
+{ config, pkgs, inputs, ... }:
+{
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -24,6 +25,12 @@
     };
   };
 
+  hardware.logitech = {
+    wireless = {
+      enable = true;
+      enableGraphical = true;
+    };
+  };
 
   hardware.nvidia = {
     # Modesetting is required.

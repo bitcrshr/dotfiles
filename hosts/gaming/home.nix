@@ -1,6 +1,7 @@
 { pkgs, lib, config, inputs, ... }: {
   imports = [
     inputs.zen-browser.homeModules.twilight
+    inputs.hyprshell.homeModules.hyprshell
   ];
 
 
@@ -13,6 +14,7 @@
     zen-browser.enable = true;
 
     kitty.enable = true;
+
   };
 
   home.sessionVariables.NIXOS_OZONE_WL = "1";

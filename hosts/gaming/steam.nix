@@ -15,6 +15,10 @@
       enableGraphical = true;
     };
 
+  services.udev.packages = with pkgs; [
+    headsetcontrol
+  ];
+
   environment.systemPackages = with pkgs;
     [
       mangohud
@@ -24,5 +28,6 @@
       solaar
       logitech-udev-rules
       spotify
+      headsetcontrol
     ];
 }

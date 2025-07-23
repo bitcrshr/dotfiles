@@ -11,6 +11,7 @@
       ./graphics.nix
       ./keyd.nix
       ./steam.nix
+      ./cachix.nix
       ./hyprland
 
       {
@@ -105,6 +106,7 @@
     gnomeExtensions.appindicator
     cpu-x
     kitty
+    cachix
   ];
 
   services.udev.packages = with pkgs; [

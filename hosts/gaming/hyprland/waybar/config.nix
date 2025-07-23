@@ -23,7 +23,7 @@
             },
             "cpu": {
                 "interval": 1,
-                "format": " {}%"
+                "format": " {usage}%"
             },
             "memory": {
               "interval": 30,

@@ -30,6 +30,11 @@
     walker = {
       url = "github:abenz1267/walker";
     };
+
+    hyprshell = {
+      url = "github:H3rmt/hyprshell?ref=hyprshell-release";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
 
