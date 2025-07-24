@@ -106,6 +106,10 @@
           "DP-2, 1920x1080@60, 1920x-600, 1, transform, 1"
         ];
 
+        binds = {
+          drag_threshold = 10;
+        };
+
         "$mainMod" = "ALT";
         "$terminal" = "ghostty";
         "$fileManager" = "dolphin";
@@ -135,6 +139,24 @@
           "$mainMod, G, togglegroup"
           "$mainMod, BRACKETLEFT, changegroupactive, f"
           "$mainMod, BRACKETRIGHT, changegroupactive, b"
+
+          "$mainMod, R, splitratio, exact 1"
+
+          # Headset Volume Control
+          ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +1%"
+          ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -1%"
+        ];
+
+        binde = [
+          "$mainMod, MINUS, resizeactive, -15 0"
+          "$mainMod, EQUAL, resizeactive, 15 0"
+          "$mainMod SHIFT, MINUS, resizeactive, 0 -15"
+          "$mainMod SHIFT, EQUAL, resizeactive, 0 15"
+        ];
+
+        bindm = [
+          "$mainMod, mouse:272, resizewindow 2"
+          "$mainMod SHIFT, mouse:272, movewindow"
         ];
 
         windowrule = [

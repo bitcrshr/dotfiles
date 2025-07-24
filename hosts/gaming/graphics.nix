@@ -9,20 +9,43 @@
   services.xserver = {
     enable = true;
     videoDrivers = [ "nvidia" ];
+  };
 
-    displayManager = {
-      gdm = {
-        enable = true;
-        wayland = true;
-        autoSuspend = false;
+  environment.systemPackages = with pkgs; [
+    greetd.tuigreet
+  ];
+
+  services.kmscon.enable = true;
+
+  services.greetd =
+    let
+      hyprland-session = "${config.programs.hyprland.package}/share/wayland-sessions";
+    in
+    {
+      enable = true;
+      settings = {
+        default_session = {
+          command = ''
+            ${pkgs.greetd.tuigreet}/bin/tuigreet \
+              --debug \
+              --time \
+              --remember \
+              --remember-session \
+              --cmd Hyprland
+          '';
+        };
       };
     };
 
-    desktopManager = {
-      gnome = {
-        enable = true;
-      };
-    };
+  systemd.services.greetd.serviceConfig = {
+    Type = "idle";
+    StandardInput = "tty";
+    StandardOutput = "tty";
+    StandardError = "journal"; # Without this errors will spam on screen
+    # Without these bootlogs will spam on screen
+    TTYReset = true;
+    TTYVHangup = true;
+    TTYVTDisallocate = true;
   };
 
   hardware.logitech = {
