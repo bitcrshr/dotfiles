@@ -18,6 +18,14 @@ in
           ../hosts/gaming
         ];
       };
+
+      virt = lib.mkNixOSConfig {
+        system = "aarch64-linux";
+        modules = [
+          inputs.disko.nixosModules.disko
+          ../hosts/virt
+        ];
+      };
     };
   };
 }
