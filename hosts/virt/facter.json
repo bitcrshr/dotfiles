@@ -199,7 +199,8 @@
           "pacg",
           "dcpodp",
           "flagm2",
-          "frint"
+          "frint",
+          "afp"
         ],
         "bogo": 48,
         "physical_id": 0,
@@ -911,14 +912,14 @@
           {
             "type": "mem",
             "base": 0,
-            "range": 4075732992,
+            "range": 8288886784,
             "enabled": true,
             "access": "read_write",
             "prefetch": "unknown"
           },
           {
             "type": "phys_mem",
-            "range": 4026531840
+            "range": 8053063680
           }
         ]
       }
@@ -1345,11 +1346,11 @@
         "resources": [
           {
             "type": "hwaddr",
-            "address": 50
+            "address": 49
           },
           {
             "type": "phwaddr",
-            "address": 50
+            "address": 49
           }
         ],
         "driver": "virtio_net",
@@ -1362,6 +1363,29 @@
     "network_interface": [
       {
         "index": 35,
+        "attached_to": 0,
+        "class_list": [
+          "network_interface"
+        ],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_name": "lo",
+        "unix_device_names": [
+          "lo"
+        ]
+      },
+      {
+        "index": 36,
         "attached_to": 21,
         "class_list": [
           "network_interface"
@@ -1386,39 +1410,16 @@
         "resources": [
           {
             "type": "hwaddr",
-            "address": 50
+            "address": 49
           },
           {
             "type": "phwaddr",
-            "address": 50
+            "address": 49
           }
         ],
         "driver": "virtio_net",
         "drivers": [
           "virtio_net"
-        ]
-      },
-      {
-        "index": 36,
-        "attached_to": 0,
-        "class_list": [
-          "network_interface"
-        ],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Loopback",
-          "value": 0
-        },
-        "model": "Loopback network interface",
-        "sysfs_id": "/class/net/lo",
-        "unix_device_name": "lo",
-        "unix_device_names": [
-          "lo"
         ]
       }
     ],
