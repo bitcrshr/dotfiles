@@ -137,8 +137,8 @@
           "$mainMod, RETURN, fullscreen, 1"
 
           "$mainMod, G, togglegroup"
-          "$mainMod, BRACKETLEFT, changegroupactive, f"
-          "$mainMod, BRACKETRIGHT, changegroupactive, b"
+          "$mainMod, BRACKETLEFT, changegroupactive, b"
+          "$mainMod, BRACKETRIGHT, changegroupactive, f"
 
           "$mainMod, R, splitratio, exact 1"
 
@@ -162,6 +162,8 @@
         windowrule = [
           "suppressevent maximize, class:.*"
           "nofocus,class:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+          "content game,class:^steam_app_1422450$"
+          "workspace 1,class:^steam_app_1422450$"
         ];
 
       };

@@ -91,9 +91,10 @@
   users.users.chandler = {
     isNormalUser = true;
     description = "Chandler Davis";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    linger = true;
     packages = with pkgs; [
-      #  thunderbird
+
     ];
   };
 
@@ -109,11 +110,36 @@
     kitty
     cachix
     pulseaudio
+    nixpkgs-fmt
+    nil
+    usbutils
+    unzip
   ];
+
+  virtualisation.docker = {
+    enable = false;
+
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
 
   programs = {
     _1password.enable = true;
     _1password-gui.enable = true;
+
+    nix-ld = {
+      enable = true;
+
+      libraries = with pkgs; [
+
+      ];
+    };
+  };
+
+  services.tailscale = {
+    enable = true;
   };
 
   environment.etc = {
@@ -151,8 +177,17 @@
 
   # List services that you want to enable:
 
+  services.sunshine.enable = true;
+  services.gvfs.enable = true;
+
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+
+    settings = {
+      PasswordAuthentication = true;
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
