@@ -50,4 +50,36 @@ in
     };
 
   # TODO: mkStandaloneHmConfig
+
+  mkK3sNode =
+    { system
+    , hostname
+    , server
+    }:
+    nixpkgs.lib.nixosSystem {
+      inherit system;
+
+      specialArgs = { inherit inputs; };
+
+      modules = [
+        {
+          knode = {
+            enable = true;
+            inherit hostname server;
+          };
+        }
+
+        (self + "/archetypes/nixos")
+        (self + "/hosts/k8s_node")
+        home-manager.nixosModules.home-manager
+
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+
+          home-manager.extraSpecialArgs = { inherit inputs; };
+        }
+
+      ];
+    };
 }

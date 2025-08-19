@@ -35,10 +35,15 @@
       url = "github:H3rmt/hyprshell?ref=hyprshell-release";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    kubenix = {
+      url = "github:hall/kubenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
 
-  outputs = inputs@{ self, flake-parts, ... }:
+  outputs = inputs@{ self, flake-parts, kubenix, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-darwin" ];
 
@@ -47,7 +52,7 @@
         ./flake-parts/exports.nix
       ];
 
-      perSystem = { config, pkgs, ... }: {
+      perSystem = { config, pkgs, system, ... }: {
         devShells = {
           default = pkgs.mkShell {
             nativeBuildInputs = with pkgs; [
