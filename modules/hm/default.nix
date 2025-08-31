@@ -30,9 +30,11 @@
   home.packages = with pkgs;
     [
       fzf
+      ranger
       ripgrep
       btop
       delta
       tailscale
+      age
     ];
 }

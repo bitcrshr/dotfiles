@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/25.05";
 
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs";
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
     };
@@ -13,9 +15,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    };
+
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     zen-browser = {
@@ -28,7 +36,12 @@
     };
 
     walker = {
-      url = "github:abenz1267/walker";
+      url = "github:abenz1267/walker/v0.13.26";
+    };
+
+    nix-darwin-linking = {
+      url = "github:dwt/nix-darwin/application-linking-done-right";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprshell = {
