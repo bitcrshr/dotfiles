@@ -45,6 +45,7 @@
       imports = [
         ./flake-parts/systems.nix
         ./flake-parts/exports.nix
+        ./flake-parts/templates.nix
       ];
 
       perSystem = { config, pkgs, ... }: {
