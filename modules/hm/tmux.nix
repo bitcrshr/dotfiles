@@ -53,6 +53,7 @@
         TMUX_FZF_LAUNCH_KEY="f"
 
         bind-key -T prefix p run-shell -b "${tmux-fzf-path}/scripts/pane.sh switch"
+        bind-key -T prefix s run-shell -b "${tmux-fzf-path}/scripts/session.sh switch"
 
         bind-key -T prefix I source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded!"
     
