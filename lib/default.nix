@@ -63,8 +63,6 @@ in
       inherit pkgs;
 
       modules = [
-        (self + "/modules/hm")
-
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
