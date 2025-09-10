@@ -1,12 +1,6 @@
 { inputs }:
 let
-<<<<<<< HEAD
-  inherit (inputs) nixpkgs home-manager nix-darwin;
-||||||| 35eb7b1
-  inherit (inputs) nixpkgs home-manager nix-darwin sops-nix opnix;
-=======
   inherit (inputs) self nixpkgs home-manager home-manager-unstable nix-darwin nix-darwin-linking;
->>>>>>> 6857ba2e177d4d352f72f6e9c00c96a09e756e34
 in
 {
   mkMacOSConfig = { modules ? [ ], specialArgs ? { } }:

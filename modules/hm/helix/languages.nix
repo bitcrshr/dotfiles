@@ -22,7 +22,6 @@
           ];
         };
       };
-<<<<<<< HEAD
 
       yaml-language-server = {
         config.yaml = {
@@ -30,11 +29,6 @@
           validation = true;
         };
       };
-    };
-||||||| 35eb7b1
-    };
-=======
->>>>>>> 6857ba2e177d4d352f72f6e9c00c96a09e756e34
 
       atlas = {
         command = "atlas";
