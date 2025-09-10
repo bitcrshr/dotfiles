@@ -13,8 +13,20 @@
       initContent = lib.mkOrder 550 ''
         setopt ignore_eof
         export PATH="$PATH:$GHOSTTY_BIN_DIR"
+        export PATH="$PATH:/opt/homebrew/bin"
+        export BUN_INSTALL="$HOME/.bun"
+        export PATH="$BUN_INSTALL/bin:$PATH"
       '';
+    };
+
+    lsd = {
+      enable = true;
+      enableZshIntegration = true;
     };
   };
 
+  home.packages = with pkgs; [
+    postman
+    zed-editor
+  ];
 }

@@ -17,11 +17,13 @@
     '';
 
     initContent = ''
-      export PATH=$PATH:$HOME/.nix-profile/bin
+      export PATH=$PATH:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin
       export GPG_TTY=$(tty)
       export PATH=$PATH:/usr/local/go/bin
       export PATH=$PATH:$HOME/.local/bin
       export FZF_DEFAULT_COMMAND='fd'
+
+      eval "$(direnv hook zsh)"
     '';
   };
 }

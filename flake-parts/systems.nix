@@ -5,16 +5,18 @@ in
 {
   flake = {
     darwinConfigurations = {
-      macbook = lib.mkDarwinSystem {
-        system = "aarch64-darwin";
-        modulePath = ../hosts/macbook;
+      macbook = lib.mkMacOSConfig {
+        modules = [ ../hosts/macbook ];
       };
     };
 
-    homeConfigurations = {
-      linux-generic = lib.mkHomeManager {
+    nixosConfigurations = {
+      gaming = lib.mkNixOSConfig {
         system = "x86_64-linux";
-        hostname = "generic-linux";
+        modules = [
+          inputs.disko.nixosModules.disko
+          ../hosts/gaming
+        ];
       };
     };
   };

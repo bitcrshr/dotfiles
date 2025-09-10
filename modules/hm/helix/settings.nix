@@ -9,6 +9,10 @@
       indent-guides.skip-levels = 1;
       indent-guides.charachter = "▏";
 
+      soft-wrap = {
+        enable = true;
+      };
+
       lsp = {
         display-inlay-hints = true;
       };

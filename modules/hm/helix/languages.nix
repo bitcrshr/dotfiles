@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.helix.languages = {
     language-server = {
       gopls = {
@@ -21,6 +22,7 @@
           ];
         };
       };
+<<<<<<< HEAD
 
       yaml-language-server = {
         config.yaml = {
@@ -29,14 +31,45 @@
         };
       };
     };
+||||||| 35eb7b1
+    };
+=======
+>>>>>>> 6857ba2e177d4d352f72f6e9c00c96a09e756e34
 
+      atlas = {
+        command = "atlas";
+        args = [
+          "tool"
+          "lsp"
+          "--stdio"
+        ];
+      };
+
+      tailwindcss-ls = {
+        command = "tailwindcss-language-server";
+        args = [ "--stdio" ];
+      };
+
+      astro-ls = {
+        command = "astro-ls";
+        args = [ "--stdio" ];
+        config = {
+          typescript = {
+            tsdk = "${pkgs.typescript}/lib/node_modules/typescript/lib";
+            environment = "node";
+          };
+        };
+      };
+    };
     language = [
       {
         name = "go";
         auto-format = true;
-        language-servers = [ "gopls" "golangci-lint2-langserver" ];
+        language-servers = [
+          "gopls"
+          "golangci-lint2-langserver"
+        ];
       }
-
 
       {
         name = "rust";
@@ -47,7 +80,10 @@
         name = "json";
         formatter = {
           command = "prettier";
-          args = [ "--parser" "json" ];
+          args = [
+            "--parser"
+            "json"
+          ];
         };
         auto-format = true;
         indent = {
@@ -58,13 +94,41 @@
 
       {
         name = "html";
+        language-servers = [
+          "vscode-html-language-server"
+          "tailwindcss-ls"
+        ];
+        auto-format = false;
         formatter = {
           command = "prettier";
-          args = [ "--parser" "html" ];
+          args = [
+            "--parser"
+            "html"
+          ];
         };
         indent = {
           tab-width = 4;
           unit = "    ";
+        };
+      }
+
+      {
+        name = "astro";
+        language-servers = [
+          "astro-ls"
+          "tailwindcss-ls"
+        ];
+        auto-format = false;
+        formatter = {
+          command = "prettier";
+          args = [
+            "--plugin"
+            "prettier-plugin-astro"
+            "--plugin"
+            "prettier-plugin-tailwindcss"
+            "--parser"
+            "astro"
+          ];
         };
       }
 
@@ -75,7 +139,10 @@
           unit = "    ";
         };
         auto-format = true;
-        language-servers = [ "svelteserver" "tailwindcss-ls" ];
+        language-servers = [
+          "svelteserver"
+          "tailwindcss-ls"
+        ];
       }
 
       {
@@ -89,6 +156,34 @@
           command = "nixpkgs-fmt";
         };
       }
-    ];
+
+      {
+        name = "ocaml";
+        auto-format = true;
+        formatter.command = "ocamlformat";
+      }
+    ]
+    ++ (
+      let
+        mappings = {
+          "atlas.hcl" = "atlas-config";
+          "pg.hcl" = "atlas-schema-postgresql";
+          "lt.hcl" = "atlas-schema-sqlite";
+          "test.hcl" = "atlas-test";
+          "plan.hcl" = "atlas-plan";
+          "rule.hcl" = "atlas-rule";
+        };
+      in
+      builtins.map
+        (key: rec {
+          name = mappings.${key};
+          scope = "text.${name}";
+          language-id = mappings.${key};
+          file-types = [ key ];
+          language-servers = [ "atlas" ];
+          grammar = "hcl";
+        })
+        (builtins.attrNames mappings)
+    );
   };
 }
