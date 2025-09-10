@@ -59,20 +59,18 @@ in
     let
       pkgs = import nixpkgs-unstable { inherit system; };
     in
-    {
-      homeConfigurations.chandler = home-manager-unstable.lib.homeManagerConfiguration {
-        inherit pkgs;
+    home-manager-unstable.lib.homeManagerConfiguration {
+      inherit pkgs;
 
-        modules = [
-          (self + "/modules/hm")
+      modules = [
+        (self + "/modules/hm")
 
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
 
-            home-manager.extraSpecialArgs = specialArgs // { inherit inputs; };
-          }
-        ] ++ modules;
-      };
+          home-manager.extraSpecialArgs = specialArgs // { inherit inputs; };
+        }
+      ] ++ modules;
     };
 }
