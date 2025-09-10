@@ -21,6 +21,13 @@
           ];
         };
       };
+
+      yaml-language-server = {
+        config.yaml = {
+          format.enable = true;
+          validation = true;
+        };
+      };
     };
 
     language = [
