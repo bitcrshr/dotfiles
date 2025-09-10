@@ -55,19 +55,20 @@ in
       ] ++ modules;
     };
 
-  mkHomeManagerConfig = { system, specialArgs ? { }, modules ? [ ]}:
+  mkHomeManagerConfig = { system, specialArgs ? { }, modules ? [ ] }:
     let
       pkgs = import nixpkgs-unstable { inherit system; };
     in
     home-manager-unstable.lib.homeManagerConfiguration {
       inherit pkgs;
+      extraSpecialArgs = specialArgs;
 
       modules = [
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
 
-          home-manager.extraSpecialArgs = specialArgs // { inherit inputs; };
+          home-manager.stateVersion = "25.05";
         }
       ] ++ modules;
     };
