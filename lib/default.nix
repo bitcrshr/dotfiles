@@ -61,7 +61,7 @@ in
     in
     home-manager-unstable.lib.homeManagerConfiguration {
       inherit pkgs;
-      extraSpecialArgs = specialArgs;
+      extraSpecialArgs = { inherit system inputs; } // specialArgs;
 
       modules = [
         {
