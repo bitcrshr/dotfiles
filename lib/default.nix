@@ -64,7 +64,6 @@ in
       extraSpecialArgs = { inherit system inputs; } // specialArgs;
 
       modules = [
-        home-manager-unstable.flakeModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
