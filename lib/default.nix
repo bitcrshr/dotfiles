@@ -61,10 +61,10 @@ in
     in
     home-manager-unstable.lib.homeManagerConfiguration {
       inherit pkgs;
-      home-manager = home-manager-unstable;
       extraSpecialArgs = { inherit system inputs; } // specialArgs;
 
       modules = [
+        home-manager-unstable.modules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
