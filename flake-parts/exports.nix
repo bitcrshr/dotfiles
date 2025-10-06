@@ -4,4 +4,5 @@ let
 in
 {
   flake.lib = lib;
+  flake.modules = import ../modules/hm;
 }
