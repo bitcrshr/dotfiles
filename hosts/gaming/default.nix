@@ -66,6 +66,11 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # TPM
+  security.tpm2.enable = true;
+  security.tpm2.pkcs11.enable = true;
+  security.tpm2.tctiEnvironment.enable = true;
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -91,12 +96,14 @@
   users.users.chandler = {
     isNormalUser = true;
     description = "Chandler Davis";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "tss" ];
     linger = true;
     packages = with pkgs; [
 
     ];
   };
+
+  users.groups.libvirtd.members = [ "chandler" ];
 
 
   # Allow unfree packages
@@ -114,20 +121,30 @@
     nil
     usbutils
     unzip
+    gcc
+    gnumake
   ];
 
-  virtualisation.docker = {
-    enable = false;
+  virtualisation = {
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
 
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
+    docker = {
+      enable = false;
+
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
     };
   };
 
   programs = {
     _1password.enable = true;
     _1password-gui.enable = true;
+
+    virt-manager.enable = true;
+    mosh.enable = true;
 
     nix-ld = {
       enable = true;

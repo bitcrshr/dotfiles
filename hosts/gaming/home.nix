@@ -1,8 +1,21 @@
-{ pkgs, lib, config, inputs, ... }: {
+{ pkgs, lib, config, inputs, system, ... }:
+
+let
+  unstablePkgs = import inputs.nixpkgs-unstable { inherit system; };
+in
+
+{
   imports = [
     inputs.zen-browser.homeModules.twilight-official
     inputs.hyprshell.homeModules.hyprshell
   ];
+
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
+    };
+  };
 
 
   programs = {
@@ -15,6 +28,8 @@
       initContent = lib.mkOrder 1000 ''
         export PATH="$PATH:$HOME/.pulumi/bin"
         export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+        export BUN_INSTALL="$HOME/.bun"
+        export PATH="$BUN_INSTALL/bin:$PATH"
       '';
     };
 
@@ -172,11 +187,20 @@
 
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
+
   home.packages = with pkgs; [
     discord
     obsidian
     blender
     terraform
     kubectl
+    remmina
+    libreoffice
+    opam
+    ocamlPackages.findlib
+    unstablePkgs.zig
+    unstablePkgs.zls
+    ranger
+    gimp
   ];
 }

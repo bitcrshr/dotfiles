@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/25.05";
 
+    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
     };
@@ -32,8 +35,7 @@
     };
 
     hyprshell = {
-      url = "github:H3rmt/hyprshell?ref=hyprshell-release";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:H3rmt/hyprshell?ref=601c7eb1a61854d0d70b257447e9ddc044810855";
     };
   };
 

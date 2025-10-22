@@ -3,9 +3,9 @@ let
   inherit (inputs) self nixpkgs home-manager nix-darwin;
 in
 {
-  mkMacOSConfig = { modules ? [ ], specialArgs ? { } }:
+  mkMacOSConfig = { modules ? [ ], specialArgs ? { }, system ? "aarch64-darwin" }:
     nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
+      inherit system;
 
       specialArgs = specialArgs // { inherit inputs; };
 
@@ -17,7 +17,7 @@ in
         {
           home-manager.useGlobalPkgs = true;
 
-          home-manager.extraSpecialArgs = specialArgs // { inherit inputs; };
+          home-manager.extraSpecialArgs = specialArgs // { inherit inputs system; };
         }
       ] ++ modules;
     };
@@ -44,7 +44,7 @@ in
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
 
-          home-manager.extraSpecialArgs = specialArgs // { inherit inputs; };
+          home-manager.extraSpecialArgs = specialArgs // { inherit inputs system; };
         }
       ] ++ modules;
     };
