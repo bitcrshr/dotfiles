@@ -1,21 +1,28 @@
 { inputs }:
 let
-  inherit (inputs) self nixpkgs home-manager nix-darwin;
+  inherit (inputs) self nixpkgs nixpkgs-unstable home-manager home-manager-unstable nix-darwin nix-darwin-linking;
 in
 {
-  mkMacOSConfig = { modules ? [ ], specialArgs ? { }, system ? "aarch64-darwin" }:
+  mkMacOSConfig = { modules ? [ ], specialArgs ? { } }:
+    let
+      home-manager = home-manager-unstable;
+      system = "aarch64-darwin";
+    in
     nix-darwin.lib.darwinSystem {
       inherit system;
 
       specialArgs = specialArgs // { inherit inputs; };
 
       modules = [
+        { disabledModules = [ "system/applications.nix" ]; }
+        "${nix-darwin-linking}/modules/system/applications.nix"
         (self + "/archetypes/mac.nix")
 
         home-manager.darwinModules.home-manager
 
         {
           home-manager.useGlobalPkgs = true;
+          home-manager.backupFileExtension = "backup";
 
           home-manager.extraSpecialArgs = specialArgs // { inherit inputs system; };
         }
@@ -49,5 +56,21 @@ in
       ] ++ modules;
     };
 
-  # TODO: mkStandaloneHmConfig
+  mkHomeManagerConfig = { system, specialArgs ? { }, modules ? [ ] }:
+    let
+      pkgs = import nixpkgs-unstable { inherit system; };
+    in
+    home-manager-unstable.lib.homeManagerConfiguration {
+      inherit pkgs;
+      extraSpecialArgs = { inherit system inputs; } // specialArgs;
+
+      modules = [
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+
+          home-manager.stateVersion = "25.05";
+        }
+      ] ++ modules;
+    };
 }

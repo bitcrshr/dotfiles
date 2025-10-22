@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -30,9 +30,11 @@
   home.packages = with pkgs;
     [
       fzf
+      ranger
       ripgrep
       btop
       delta
       tailscale
+      age
     ];
 }
