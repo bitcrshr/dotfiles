@@ -1,21 +1,22 @@
 { pkgs, ... }:
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./disko.nix
-      ./graphics.nix
-      ./keyd.nix
-      ./steam.nix
-      ./cachix.nix
-      ./hyprland
+  imports = [
+    ./hardware-configuration.nix
+    ./disko.nix
+    ./graphics.nix
+    ./keyd.nix
+    ./steam.nix
+    ./cachix.nix
+    ./hyprland
 
-      {
-        home-manager.users.chandler = {
-          imports = [ ./home.nix ];
-        };
-      }
-    ];
+    {
+      home-manager.users.chandler = {
+        imports = [ ./home.nix ];
+      };
+    }
+  ];
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # Bootloader.
   # boot.loader.systemd-boot.enable = true;
@@ -92,7 +93,12 @@
   users.users.chandler = {
     isNormalUser = true;
     description = "Chandler Davis";
-    extraGroups = [ "networkmanager" "wheel" "docker" "tss" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "tss"
+    ];
     linger = true;
     packages = with pkgs; [
 
@@ -100,7 +106,6 @@
   };
 
   users.groups.libvirtd.members = [ "chandler" ];
-
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

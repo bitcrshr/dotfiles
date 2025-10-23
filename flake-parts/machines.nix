@@ -6,4 +6,10 @@
       modules = [ ../machines/nixos/gaming ];
     };
   };
+
+  flake.darwinConfigurations = {
+    macbook = self.lib.mkDarwinConfiguration {
+      
+    };
+  };
 }

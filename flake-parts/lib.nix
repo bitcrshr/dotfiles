@@ -69,7 +69,6 @@
 
     mkDarwinConfiguration =
       {
-        hostname,
         nix-darwin ? inputs.nix-darwin,
         nixpkgs ? inputs.nixpkgs,
         home-manager ? inputs.home-manager,
@@ -127,6 +126,10 @@
               programs.zsh.enable = false;
 
               home-manager.users.${user} = {
+                imports = [
+                  self.homeModules.default                  
+                ];
+
                 home = {
                   username = user;
                   stateVersion = "25.05";
@@ -134,17 +137,18 @@
 
                 systemd.user.startServices = "sd-switch";
 
-                programs.zsh = {
-                  # macos already comes with zsh
-                  package = pkgs.emptyDirectory;
+                programs = {
+                  zsh = {
+                    # macos already comes with zsh
+                    package = pkgs.emptyDirectory;
 
-                  initContent = ''
-                    setopt ignore_eof
-                    export PATH="$PATH:/run/current-system/sw/bin"
-                    export PATH="$PATH:$GHOSTTY_BIN_DIR"
-                    export PATH="$PATH:/opt/homebrew/bin"
-                  '';
-
+                    initContent = ''
+                      setopt ignore_eof
+                      export PATH="$PATH:/run/current-system/sw/bin"
+                      export PATH="$PATH:$GHOSTTY_BIN_DIR"
+                      export PATH="$PATH:/opt/homebrew/bin"
+                    '';
+                  };
                   lsd = {
                     enable = true;
                     enableZshIntegration = true;
@@ -171,6 +175,34 @@
           }
         ]
         ++ modules;
+      };
+
+    mkHomeManagerConfiguration =
+      {
+        nixpkgs ? inputs.nixpkgs,
+        home-manager ? inputs.home-manager,
+        modules ? [ ],
+        system ? "aarch64-darwin",
+        user ? "chandler",
+      }:
+      home-manager.lib.homeManagerConfiguration {
+        extraSpecialArgs = { inherit system inputs; };
+
+        modules = [
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              stateVersion = "25.05";
+
+              users.${user} = {
+                imports = [
+                  self.homeModules.default                  
+                ];
+              };
+            };
+          }          
+        ] ++ modules;
       };
   };
 }
