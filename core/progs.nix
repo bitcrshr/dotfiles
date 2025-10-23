@@ -1,9 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs = {
     git = {
       enable = true;
-      userName = "Chandler Davis";
+      user.name = "Chandler Davis";
+      user.email = lib.mkDefault "chandler.davis99@icloud.com";
     };
 
     gh = {

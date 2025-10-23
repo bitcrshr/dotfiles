@@ -5,7 +5,6 @@
     enable32Bit = true;
   };
 
-
   services.xserver = {
     enable = true;
     videoDrivers = [ "nvidia" ];
