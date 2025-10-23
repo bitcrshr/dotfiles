@@ -1,23 +1,18 @@
 {
-  description = "";
+  description = "bitcrshr's dotfiles and various configs";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/25.05";
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-
-
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -37,28 +32,28 @@
     hyprshell = {
       url = "github:H3rmt/hyprshell?ref=601c7eb1a61854d0d70b257447e9ddc044810855";
     };
+
+    nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
   };
 
+  outputs = inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, flake-parts-lib, ... }:
+      {
+        imports = [
+          inputs.home-manager.flakeModules.home-manager
 
-  outputs = inputs@{ self, flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" "aarch64-darwin" ];
+          ./flake-parts/lib.nix
+          ./flake-parts/shared-modules.nix
+          ./flake-parts/machines.nix
+        ];
+        systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+        perSystem = { config, self', inputs', pkgs, system, ... }: {
+          # Per-system attributes can be defined here. The self' and inputs'
+          # module parameters provide easy access to attributes of the same
+          # system.
 
-      imports = [
-        ./flake-parts/systems.nix
-        ./flake-parts/exports.nix
-        ./flake-parts/templates.nix
-      ];
-
-      perSystem = { config, pkgs, ... }: {
-        devShells = {
-          default = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [
-              nixpkgs-fmt
-              nil
-            ];
-          };
         };
-      };
-    };
+        flake = {
+        };
+      });
 }
