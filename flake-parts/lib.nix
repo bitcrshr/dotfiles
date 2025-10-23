@@ -1,4 +1,20 @@
 { inputs, self, ... }:
+let
+  sharedHomeConfig = { user }: { pkgs, ... }: {
+    home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
+    home-manager.extraSpecialArgs = { inherit inputs; };
+
+    home-manager.users.${user} = {
+      imports = [
+        self.homeModules.default
+      ];
+
+      home.stateVersion = "25.05";
+    };
+  };
+
+in
 {
   flake.lib = {
     mkNixOsConfiguration =
@@ -50,19 +66,7 @@
 
           home-manager.nixosModules.home-manager
 
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-
-            home-manager.users.${user} = {
-              imports = [
-                self.homeModules.default
-              ];
-
-              home.stateVersion = "25.05";
-            };
-          }
+          (sharedHomeConfig { inherit user; })
         ]
         ++ modules;
       };
@@ -127,7 +131,7 @@
 
               home-manager.users.${user} = {
                 imports = [
-                  self.homeModules.default                  
+                  self.homeModules.default
                 ];
 
                 home = {
@@ -160,19 +164,7 @@
 
           home-manager.darwinModules.home-manager
 
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-
-            home-manager.users.${user} = {
-              imports = [
-                self.homeModules.default
-              ];
-
-              home.stateVersion = "25.05";
-            };
-          }
+          (sharedHomeConfig { inherit user; })
         ]
         ++ modules;
       };
@@ -186,23 +178,13 @@
         user ? "chandler",
       }:
       home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs { inherit system; };
         extraSpecialArgs = { inherit system inputs; };
 
         modules = [
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              stateVersion = "25.05";
-
-              users.${user} = {
-                imports = [
-                  self.homeModules.default                  
-                ];
-              };
-            };
-          }          
-        ] ++ modules;
+          (sharedHomeConfig { inherit user; })
+        ]
+        ++ modules;
       };
   };
 }

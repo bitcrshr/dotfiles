@@ -36,8 +36,15 @@
     nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
   };
 
-  outputs = inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, flake-parts-lib, ... }:
+  outputs =
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      top@{
+        withSystem,
+        flake-parts-lib,
+        self,
+        ...
+      }:
       {
         imports = [
           inputs.home-manager.flakeModules.home-manager
@@ -46,14 +53,27 @@
           ./flake-parts/shared-modules.nix
           ./flake-parts/machines.nix
         ];
-        systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
-        perSystem = { config, self', inputs', pkgs, system, ... }: {
-          # Per-system attributes can be defined here. The self' and inputs'
-          # module parameters provide easy access to attributes of the same
-          # system.
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+          "aarch64-darwin"
+          "x86_64-darwin"
+        ];
+        perSystem =
+          {
+            config,
+            self',
+            inputs',
+            pkgs,
+            system,
+            ...
+          }:
+          {
 
-        };
+          };
+
         flake = {
         };
-      });
+      }
+    );
 }

@@ -9,7 +9,11 @@
 
   flake.darwinConfigurations = {
     macbook = self.lib.mkDarwinConfiguration {
-      
+
     };
+  };
+
+  flake.homeConfigurations = {
+    generic = self.lib.mkHomeManagerConfiguration { system = "x86_64-linux"; };
   };
 }
