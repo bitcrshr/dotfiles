@@ -30,7 +30,7 @@
               --time \
               --remember \
               --remember-session \
-              --cmd Hyprland
+              --cmd 'uwsm start Hyprland'
           '';
         };
       };

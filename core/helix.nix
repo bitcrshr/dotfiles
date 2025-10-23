@@ -1,36 +1,41 @@
 {
-  programs.helix.settings = {
-    theme = "material_palenight";
+  programs.helix = {
+    enable = true;
+    defaultEditor = true;
 
-    editor = {
-      true-color = true;
-      auto-format = true;
+    settings = {
+      theme = "material_palenight";
 
-      indent_guides = {
-        render = true;
-        skip-levels = 1;
+      editor = {
+        true-color = true;
+        auto-format = true;
+
+        indent_guides = {
+          render = true;
+          skip-levels = 1;
+        };
+
+        soft-wrap.enable = true;
+
+        lsp.display-inlay-hints = true;
+
+        clipboard-provider = "termcode";
       };
 
-      soft-wrap.enable = true;
+      keys = {
+        normal = {
+          "_" = "goto_first_nonwhitespace";
+          "$" = "goto_line_end";
+          "{" = "goto_prev_paragraph";
+          "}" = "goto_next_paragraph";
+        };
 
-      lsp.display-inlay-hints = true;
-
-      clipboard-provider = "termcode";
-    };
-
-    keys = {
-      normal = {
-        "_" = "goto_first_nonwhitespace";
-        "$" = "goto_line_end";
-        "{" = "goto_prev_paragraph";
-        "}" = "goto_next_paragraph";
-      };
-
-      select = {
-        "_" = "goto_first_nonwhitespace";
-        "$" = "goto_line_end";
-        "{" = "goto_prev_paragraph";
-        "}" = "goto_next_paragraph";
+        select = {
+          "_" = "goto_first_nonwhitespace";
+          "$" = "goto_line_end";
+          "{" = "goto_prev_paragraph";
+          "}" = "goto_next_paragraph";
+        };
       };
     };
   };

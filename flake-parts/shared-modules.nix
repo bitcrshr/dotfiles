@@ -1,7 +1,14 @@
 { ... }:
 {
   flake.homeModules = {
-    default = import ../core;
+    default = {
+      imports = [
+        ../core/helix.nix
+        ../core/zsh.nix
+        ../core/tmux.nix
+        ../core/progs.nix
+      ];
+    };
 
     helix = import ../core/helix.nix;
     zsh = import ../core/zsh.nix;

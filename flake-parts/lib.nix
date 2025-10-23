@@ -15,12 +15,9 @@
         specialArgs = { inherit inputs; };
 
         modules =
-          let
-            pkgs = import nixpkgs { inherit system; };
-          in
           [
             # shared nixos config
-            {
+            ({ pkgs, ... }: {
               networking.hostName = hostname;
 
               nix.settings = {
@@ -39,16 +36,16 @@
                 ohMyZsh = {
                   enable = true;
                   plugins = [ "git" ];
-                  theme = "robbyrussel";
+                  theme = "robbyrussell";
                 };
               };
 
               users.users.${user}.shell = pkgs.zsh;
-            }
-
-            home-manager.nixosModules.home-manager
+            })
 
             inputs.disko.nixosModules.disko
+
+            home-manager.nixosModules.home-manager
 
             {
               home-manager.useGlobalPkgs = true;

@@ -3,8 +3,10 @@
   programs = {
     git = {
       enable = true;
-      user.name = "Chandler Davis";
-      user.email = lib.mkDefault "chandler.davis99@icloud.com";
+      settings.user = {
+        name = "Chandler Davis";
+        email = lib.mkDefault "chandler.davis99@icloud.com";
+      };
     };
 
     gh = {

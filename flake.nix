@@ -32,8 +32,6 @@
 
   outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, flake-parts-lib, ... }:
-      let
-      in
       {
         imports = [
           inputs.home-manager.flakeModules.home-manager
@@ -50,9 +48,6 @@
 
         };
         flake = {
-          homeModules = {
-            default = import ./core;
-          };
         };
       });
 }
