@@ -1,18 +1,21 @@
 { inputs, self, ... }:
 let
-  sharedHomeConfig = { user }: { pkgs, ... }: {
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-    home-manager.extraSpecialArgs = { inherit inputs; };
+  sharedHomeConfig =
+    { user }:
+    { pkgs, ... }:
+    {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.extraSpecialArgs = { inherit inputs; };
 
-    home-manager.users.${user} = {
-      imports = [
-        self.homeModules.default
-      ];
+      home-manager.users.${user} = {
+        imports = [
+          self.homeModules.default
+        ];
 
-      home.stateVersion = "25.05";
+        home.stateVersion = "25.05";
+      };
     };
-  };
 
 in
 {
@@ -174,17 +177,32 @@ in
         nixpkgs ? inputs.nixpkgs,
         home-manager ? inputs.home-manager,
         modules ? [ ],
-        system ? "aarch64-darwin",
+        system ? "x86_64-linux",
         user ? "chandler",
       }:
-      home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { inherit system; };
-        extraSpecialArgs = { inherit system inputs; };
+      home-manager.lib.homeManagerConfiguration
 
-        modules = [
-          (sharedHomeConfig { inherit user; })
-        ]
-        ++ modules;
-      };
+        (
+          let
+            pkgs = import nixpkgs { inherit system; };
+          in
+          {
+            inherit pkgs;
+            extraSpecialArgs = { inherit system inputs; };
+
+            modules = [
+              {
+                imports = [ self.homeModules.default ];
+
+                home = {
+                  username = user;
+                  homeDirectory = "/home/${user}";
+                  stateVersion = "25.05";
+                };
+              }
+            ]
+            ++ modules;
+          }
+        );
   };
 }

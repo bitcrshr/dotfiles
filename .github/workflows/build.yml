@@ -21,7 +21,7 @@ jobs:
       run: nix flake check
 
     - name: Build NixOS configuration
-      run: nix build .#nixosConfigurations.bitcrshr-gaming
+      run: nixos-rebuild build --flake .#bitcrshr-gaming
 
     - name: Build Home Manager configuration
       run: nix build .#homeConfigurations.generic
@@ -38,4 +38,4 @@ jobs:
       run: nix flake check
 
     - name: Build Darwin configuration
-      run: nix build .#darwinConfigurations.macbook
+      run: nix build --flake .#darwinConfigurations.macbook
