@@ -21,6 +21,7 @@
       export PATH=$PATH:/usr/local/go/bin
       export PATH=$PATH:$HOME/.local/bin
       export FZF_DEFAULT_COMMAND='fd'
+      export EDITOR="hx"
 
       eval "$(direnv hook zsh)"
     '';
