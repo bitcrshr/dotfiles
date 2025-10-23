@@ -10,7 +10,7 @@
         true-color = true;
         auto-format = true;
 
-        indent_guides = {
+        indent-guides = {
           render = true;
           skip-levels = 1;
         };
