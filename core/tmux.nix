@@ -39,6 +39,7 @@
 
         set -gu default-command
         set -g default-shell "$SHELL"
+        set -g default-terminal "xterm-256color"
 
         set-window-option -g mouse on
         set -g history-limit 30000
