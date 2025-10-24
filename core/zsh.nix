@@ -16,7 +16,7 @@
     '';
 
     initContent = ''
-      export PATH=$PATH:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin
+      export PATH=$PATH:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/chandler/bin
       export GPG_TTY=$(tty)
       export PATH=$PATH:/usr/local/go/bin
       export PATH=$PATH:$HOME/.local/bin
