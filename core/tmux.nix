@@ -40,13 +40,14 @@
         set -gu default-command
         set -g default-shell "$SHELL"
         set -g default-terminal "xterm-256color"
+        set -ga terminal-overrides ",*256col*:Tc"
+        set -as terminal-features ",*256col*:clipboard"
 
         set-window-option -g mouse on
         set -g history-limit 30000
         set -g mouse on
         set -g set-clipboard on
         set -g main-pane-height 80
-        set -as terminal-features ",xterm-256color:clipboard"
 
         TMUX_FZF_SWITCH_CURRENT=1
         TMUX_FZF_ORDER="pane|session|window|command|keybinding|clipboard|process"

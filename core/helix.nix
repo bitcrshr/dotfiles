@@ -2,7 +2,6 @@
   home.packages = with pkgs; [
     lazygit    
     yazi
-    scooter
   ];
 
   programs.helix = {
