@@ -21,10 +21,10 @@ jobs:
       run: nix flake check
 
     - name: Build NixOS configuration
-      run: nixos-rebuild build --flake .#bitcrshr-gaming
+      run: nix-shell -p nixos-rebuild --run "nixos-rebuild build --flake .#bitcrshr-gaming"
 
     - name: Build Home Manager configuration
-      run: nix build .#homeConfigurations.generic
+      run: nix-shell -p home-manager --run "home-manager  build .#homeConfigurations.generic
 
   build-darwin:
     runs-on: macos-latest
@@ -38,4 +38,4 @@ jobs:
       run: nix flake check
 
     - name: Build Darwin configuration
-      run: nix build --flake .#darwinConfigurations.macbook
+      run: nix build .#darwinConfigurations.macbook

@@ -17,7 +17,7 @@
     zsh = {
       shellAliases = {
         conedit = "tmux new -s dotfiles -c /home/chandler/dotfiles -A";
-        update = "sudo -i nixos-rebuild switch --flake /home/chandler/dotfiles#gaming";
+        update = "sudo -i nixos-rebuild switch --flake /home/chandler/dotfiles#bitcrshr-gaming";
       };
 
       initContent = lib.mkOrder 1000 ''
