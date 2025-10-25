@@ -133,6 +133,7 @@
 
           "$mainMod SHIFT, 1, movetoworkspace, 1"
           "$mainMod SHIFT, 2, movetoworkspace, 2"
+          "$mainMod SHIFT, 4, exec, grim -g \"$(slurp -d)\""
 
           "$mainMod, RETURN, fullscreen, 1"
 
@@ -142,9 +143,13 @@
 
           "$mainMod, R, splitratio, exact 1"
 
+
           # Headset Volume Control
           ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +1%"
           ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -1%"
+
+          # Screenshot
+          ", Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
         ];
 
         binde = [

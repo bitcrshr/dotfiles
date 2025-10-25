@@ -69,7 +69,7 @@
       settings = {
 
       }
-      // (import ../../../core/starship/presets/catppuccin.nix "frappe");
+      // (builtins.fromTOML (builtins.readFile ../../../assets/starship/catppuccin.toml));
     };
 
     ghostty = {
@@ -248,5 +248,9 @@
     zls
     ranger
     gimp
+    signal-desktop
+    grim
+    slurp
+    wl-clipboard
   ];
 }

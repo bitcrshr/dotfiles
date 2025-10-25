@@ -7,7 +7,6 @@
         ../core/zsh.nix
         ../core/tmux.nix
         ../core/progs.nix
-        ../core/starship/presets/catppuccin.nix
       ];
     };
 
