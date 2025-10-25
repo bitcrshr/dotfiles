@@ -22,6 +22,7 @@
       export PATH=$PATH:$HOME/.local/bin
       export FZF_DEFAULT_COMMAND='fd'
       export EDITOR="hx"
+      export YAZI_CONFIG_HOME="$HOME/.config/yazi"
 
       eval "$(direnv hook zsh)"
     '';

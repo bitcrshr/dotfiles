@@ -28,5 +28,6 @@
     btop
     delta
     tailscale
+    nix-search
   ];
 }

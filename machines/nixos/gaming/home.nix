@@ -1,4 +1,11 @@
-{ pkgs, lib, config, inputs, system, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  system,
+  ...
+}:
 {
   imports = [
     inputs.zen-browser.homeModules.twilight-official
@@ -12,9 +19,9 @@
     };
   };
 
-
   programs = {
     zsh = {
+      enable = lib.mkForce false;
       shellAliases = {
         conedit = "tmux new -s dotfiles -c /home/chandler/dotfiles -A";
         update = "sudo -i nixos-rebuild switch --flake /home/chandler/dotfiles#bitcrshr-gaming";
@@ -26,6 +33,51 @@
         export BUN_INSTALL="$HOME/.bun"
         export PATH="$BUN_INSTALL/bin:$PATH"
       '';
+    };
+
+    nushell = {
+      enable = true;
+
+      extraConfig =
+        let
+          catppuccin-nu = pkgs.fetchFromGitHub {
+            owner = "catppuccin";
+            repo = "nushell";
+            rev = "c0568b4a78f04be24f68c80284755d4635647aa1";
+            sha256 = "sha256-vaGiZHoGkHr1QcshO8abIQL/zIuw3hFcBhDYcKhOpNw=";
+          };
+        in
+        ''
+          $env.SSH_AUTH_SOCK = $'($env.HOME)/.1password/agent.sock'
+          $env.BUN_INSTALL = $'($env.HOME)/.bun'
+          $env.Path = ($env.Path | prepend $'($env.HOME)/pulumi/bin' | prepend $'($env.BUN_INSTALL)/bin')
+
+          source ${catppuccin-nu}/themes/catppuccin_frappe.nu
+        '';
+
+      shellAliases = {
+        conedit = "tmux new -s dotfiles -c /home/chandler/dotfiles -A";
+        update = "sudo -i nixos-rebuild switch --flake /home/chandler/dotfiles#bitcrshr-gaming";
+      };
+
+    };
+
+    starship = {
+      enable = true;
+      enableNushellIntegration = true;
+
+      settings = {
+
+      }
+      // (import ../../../core/starship/presets/catppuccin.nix "frappe");
+    };
+
+    ghostty = {
+      enable = true;
+
+      settings = {
+        theme = "Catppuccin Frappe";
+      };
     };
 
     zen-browser.enable = true;
@@ -181,7 +233,6 @@
   };
 
   home.sessionVariables.NIXOS_OZONE_WL = "1";
-
 
   home.packages = with pkgs; [
     discord

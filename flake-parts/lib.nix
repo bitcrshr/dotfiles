@@ -49,7 +49,6 @@ in
               };
 
               environment.systemPackages = with pkgs; [
-                ghostty
               ];
 
               programs.zsh = {

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -10,6 +10,7 @@
     ./hyprland
 
     {
+      home-manager.backupFileExtension = "bak";
       home-manager.users.chandler = {
         imports = [ ./home.nix ];
       };
@@ -103,6 +104,7 @@
     packages = with pkgs; [
 
     ];
+    shell = lib.mkForce pkgs.nushell;
   };
 
   users.groups.libvirtd.members = [ "chandler" ];
