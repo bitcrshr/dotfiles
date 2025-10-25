@@ -9,7 +9,9 @@
 
   flake.darwinConfigurations = {
     macbook = self.lib.mkDarwinConfiguration {
-
+      modules = [
+        ../machines/macos/macbook
+      ];
     };
   };
 

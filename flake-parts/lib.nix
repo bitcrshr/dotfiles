@@ -102,7 +102,6 @@ in
 
                 casks = [
                   "rectangle"
-                  "ghostty"
                   "spotify"
                   "zen"
                   "appcleaner"

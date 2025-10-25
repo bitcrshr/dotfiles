@@ -7,6 +7,7 @@
         ../core/zsh.nix
         ../core/tmux.nix
         ../core/progs.nix
+        ../apps
       ];
     };
 
