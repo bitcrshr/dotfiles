@@ -56,10 +56,13 @@
         set -gu default-command
         set -g default-shell "$SHELL"
         set -g default-terminal "xterm-256color"
-        set -ga terminal-overrides ",*256col*:Tc"
-        set -as terminal-features ",*256col*:clipboard"
+        set -ga terminal-overrides ",xterm*:Tc"
+        set -ga terminal-overrides ",*:Ms=\\E]52;c%p1%.0s;%p2%s\\7"
+        set -ga terminal-features ",xterm-256color:clipboard"
 
         set-window-option -g mouse on
+        set-window-option -g mode-keys vi
+
         set -g history-limit 30000
         set -g mouse on
         set -g set-clipboard on
@@ -75,6 +78,9 @@
         bind-key -T prefix I source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded!"
     
         bind -n C-k clear-history
+
+        bind-key -T copy-mode-vi 'v' send -X begin-selection
+        bind-key -T copy-mode-vi 'y' send -X copy-selection-no-clear
 
         # Override the binding to use literal session name
         bind-key M-i if-shell -F '#{==:#S,floating}' {
