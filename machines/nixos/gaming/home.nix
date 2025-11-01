@@ -38,6 +38,8 @@
     nushell = {
       enable = true;
 
+      package = pkgs.emptyDirectory;
+
       extraConfig =
         let
           catppuccin-nu = pkgs.fetchFromGitHub {
@@ -51,6 +53,7 @@
           $env.SSH_AUTH_SOCK = $'($env.HOME)/.1password/agent.sock'
           $env.BUN_INSTALL = $'($env.HOME)/.bun'
           $env.Path = ($env.Path | prepend $'($env.HOME)/pulumi/bin' | prepend $'($env.BUN_INSTALL)/bin')
+          $env.shell = "/run/current-system/sw/bin/nu"
 
           source ${catppuccin-nu}/themes/catppuccin_frappe.nu
         '';
@@ -77,6 +80,10 @@
 
       settings = {
         theme = "Catppuccin Frappe";
+
+        mouse-scroll-multiplier = "0.5";
+        background-opacity = 0.85;
+        command = "nu";
       };
     };
 

@@ -9,6 +9,11 @@ let
     ));
 in
 {
+
+  imports = [
+    ../theme/catppuccin/helix.nix    
+  ];
+
   home.packages = with pkgs; [
     lazygit
     scooter
@@ -76,7 +81,7 @@ in
     defaultEditor = true;
 
     settings = {
-      theme = "catppuccin_frappe";
+      theme = "catppuccin_frappe_transparent";
 
       editor = {
         bufferline = "always";

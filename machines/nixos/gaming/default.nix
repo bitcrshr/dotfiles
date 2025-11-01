@@ -17,6 +17,10 @@
     }
   ];
 
+  environment.shells = [
+    pkgs.nushell
+  ];
+
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # Bootloader.
@@ -90,6 +94,8 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  users.defaultUserShell = pkgs.nushell;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.chandler = {
     isNormalUser = true;
@@ -102,8 +108,9 @@
     ];
     linger = true;
     packages = with pkgs; [
-
+      transmission_4-qt
     ];
+
     shell = lib.mkForce pkgs.nushell;
   };
 
@@ -126,6 +133,7 @@
     unzip
     gcc
     gnumake
+    nushell
   ];
 
   virtualisation = {
