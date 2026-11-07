@@ -1,0 +1,34 @@
+theme = "catppuccin_frappe"
+
+[editor]
+bufferline = "always"
+completion-replace = true
+color-modes = true
+true-color = true
+auto-format = true
+clipboard-provider = "termcode"
+
+indent-guides = { render = true, skip-levels = 1 }
+
+[editor.soft-wrap]
+enable = true
+
+[editor.lsp]
+display-inlay-hints = true
+
+
+[keys.normal]
+"_" = "goto_first_nonwhitespace"
+"$" = "goto_line_end"
+"{" = "goto_prev_paragraph"
+"}" = "goto_next_paragraph"
+"=" = ":buffer-next"
+"-" = ":buffer-previous"
+
+[keys.select]
+"_" = "goto_first_nonwhitespace"
+"$" = "goto_line_end"
+"{" = "goto_prev_paragraph"
+"}" = "goto_next_paragraph"
+"=" = ":buffer-next"
+"-" = ":buffer-previous"

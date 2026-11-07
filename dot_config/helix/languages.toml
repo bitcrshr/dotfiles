@@ -1,0 +1,3 @@
+[language-server.typescript-language-server]
+command = "bun"
+args = ["run", "--bun", "typescript-language-server", "--stdio"]

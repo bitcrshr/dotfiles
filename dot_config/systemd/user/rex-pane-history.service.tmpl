@@ -1,0 +1,10 @@
+[Unit]
+Description=Rex last-pane focus history
+
+[Service]
+ExecStart="{{ lookPath "rex" }}" --autostart=false do "{{ .chezmoi.homeDir }}/.config/rex/pane-history.lua" --all --fail-fast
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
