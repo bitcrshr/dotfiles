@@ -62,7 +62,21 @@ bind("shift+4", "session.rename") -- $
 bind("shift+5", "pane.split", { direction = "right" }) -- %
 bind("shift+'", "pane.split", { direction = "down" }) -- "
 bind("z", "pane.zoom")
-bind("x", "pane.close")
+rex.action{
+  name = "close_pane",
+  title = "Close Pane or Its Last Tab",
+  run = function(ctx)
+    local args = { session_id = ctx.session_id, keep_last = false }
+    if ctx.block_id then
+      args.block_id = ctx.block_id
+    else
+      args.window_id = assert(rex.session.view{}).active_window_id
+      if not args.window_id then return end
+    end
+    return assert(rex.call("block.close", args))
+  end,
+}
+bind("x", "close_pane")
 bind("o", "pane.focus_next")
 -- Last focused pane within this tab; history includes mouse navigation.
 rex.action{

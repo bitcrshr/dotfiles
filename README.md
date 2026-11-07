@@ -68,7 +68,7 @@ windows. Native Mac shortcuts remain available.
 | Arrows | Focus pane |
 | `;` | Toggle last focused pane in this tab |
 | `o` | Next pane |
-| `z`, `x` | Zoom, close pane |
+| `z`, `x` | Zoom, close pane (last pane closes its tab) |
 | `s`, `w` | Session picker, go-to picker |
 | `,`, `$` | Rename tab, session |
 | `!` | Move pane to new tab |
